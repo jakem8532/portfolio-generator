@@ -1,5 +1,6 @@
 const inquirer = require('inquirer')
-
+const generatePage = require('./src/page-template.cjs')
+const fs = require('fs')
 
 function promptUser() {
     return inquirer.prompt([
@@ -24,7 +25,7 @@ function promptUser() {
                 if (nameInput) {
                     return true
                 }else {
-                    console.log('PLease enter your name!')
+                    console.log('Please enter your name!')
                     return false
                 }
             }
@@ -92,7 +93,7 @@ function promptProject(portfolioData) {
             },
             {
                 type: 'checkbox',
-                name: 'Languages',
+                name: 'languages',
                 message: 'What did you build this project with? (Check all that apply)',
                 choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node']
             },
@@ -136,19 +137,10 @@ function promptProject(portfolioData) {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData)
+        const pageHTML = generatePage(portfolioData)
+
+        fs.writeFile('index.html', generatePage(portfolioData), err => {
+            if (err) throw err
+        })
+
     })
-
-
-
-// const generatePage = require('./src/page-template.js')
-// const fs = require('fs')
-
-// const pageHTML = generatePage(name, github)
-
-// fs.writeFile('index.html', generatePage(name, github), err => {
-//     if (err) throw err
-
-//     console.log('Portfolio complete! Checkout index.html to see the output!')
-// })
-
