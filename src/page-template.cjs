@@ -70,7 +70,7 @@ module.exports = templateData => {
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
       <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="./style.css">
       <title>Portfolio Demo</title>
     </head>
   
@@ -84,7 +84,7 @@ module.exports = templateData => {
         </div>
       </header>
 
-      </main class="container my-5">
+      <main class="container my-5">
         ${generateAbout(about)}
         ${generateProjects(projects)}
       </main>

@@ -1,6 +1,6 @@
+const {writeFile, copyFile} = require('./utils/generate-site.cjs')
 const inquirer = require('inquirer')
 const generatePage = require('./src/page-template.cjs')
-const fs = require('fs')
 
 function promptUser() {
     return inquirer.prompt([
@@ -137,10 +137,18 @@ function promptProject(portfolioData) {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        const pageHTML = generatePage(portfolioData)
-
-        fs.writeFile('index.html', generatePage(portfolioData), err => {
-            if (err) throw err
-        })
-
+        return generatePage(portfolioData)
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML)
+    })
+    .then(writeFileResponse => {
+        console.log(writeFileResponse)
+        return copyFile()
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse)
+    })
+    .catch(err => {
+        console.log(err)
     })
